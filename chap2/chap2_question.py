@@ -21,56 +21,6 @@ from typing import Any, Sequence
 요구사항 2 : 특정 학생의 시험 점수를 확인하거나 변경하는 경우
 요구사항 3 : 최저점과 최고점을 구하거나 정렬이 필요한 경우
 '''
-# # 요구사항 1번
-# student = int(input("학생 수를 입력하세요 :"))
-# x = [None] * student
-
-# # 요구사항 3번
-# # 최댓값
-# def max_of(a: Sequence) -> Any:
-#     maximum = a[0]
-#     for i in range(1, len(a)):
-#         if a[i] > maximum:
-#             maximum = a[i]
-#     return maximum
-# # 최솟값
-# def min_of(a: Sequence) -> Any:
-#     minimum = a[0]
-#     for i in range(1, len(a)):
-#         if a[i] < minimum:
-#             minimum = a[i]
-#     return minimum
-
-# for i in range(len(x)):
-#     total = 0
-#     x[i] = int(input(f'{i+1}번째 학생의 점수를 입력하세요 :'))
-#     total += x[i]
-
-# print(x, total)
-# upgrade = int(input('확인하거나 수정할 학생의 번호를 선택하세요 :'))
-
-# # 요구사항 2번
-# for z, name in enumerate(x, 1):
-#     if upgrade == z:
-#         print('{}번째 학생의 점수는 {}'.format(z, name))
-#         answer = str(input('수정하시겠습니까 ? ( Y / N ) :'))
-#         answer.strip().upper()
-
-#         if answer == 'y':
-#             a = int(input('수정할 값을 입력하세요 :'))
-#             total += a
-#             x[i] = a
-#             print('수정되었습니다.')
-            
-#         elif answer == 'n':
-#             print('종료합니다.')
-#         else :
-#             pass
-#     else:
-#         pass
-
-# ''''''
-# print(f' 최대값 : {max_of(x)} \n 최소값 : {min_of(x)} \n 총합 : {total} \n 평균값 : {total / len(x)}')
 
 '''입력, 수정, 삭제, 찾기'''
 names = []
@@ -86,18 +36,18 @@ def insert():
     scores.append(score)
     print('등록되었습니다.')
     ins = input('계속 입력하시겠습니까? Y / N')
-    ins.upper()
-    if ins == 'y':
+    ins = ins.upper()
+    if ins == 'Y':
         insert()
-    elif ins == 'n':
+    elif ins == 'N':
         return
-    elif ins != 'n':
+    elif ins != 'N':
         while True:
             ins = input('다시 입력해주세요.')
             ins.upper()
-            if ins == 'y':
-                insert()
-            elif ins == 'n':
+            if ins == 'Y':
+                return insert()
+            elif ins == 'N':
                 break
 
 # 수정
@@ -133,8 +83,40 @@ def list_all():
         while i >= 0:
             full_score += scores[i]
             i -= 1
-    print(f'총{len(names)}, 총점수 {full_score}')
+    print(f'총{len(names)}명, 총점수 : {full_score}, 평균점수 : {full_score / len(names)}')
 
+# 삭제
+def delete():
+    name = input('삭제할 이름을 입력하세요.')
+    name = name.strip().upper()
+    if name in names:
+        idx = names.index(name)
+        print('{}의 점수는 {}입니다.'.format(names[idx], scores[idx]))
+        i = input('삭제하시겠습니까? Y / N')
+        i = i.upper()
+        if i == 'Y':
+            del names[idx]
+            del scores[idx]
+            print('{}의 정보가 삭제되었습니다.'.format(name))
+        elif i == 'N':
+            print('취소하였습니다.')
+        elif i != 'N':
+            while True:
+                i = input('다시 입력하세요.')
+                i = i.upper()
+                if i == 'Y':
+                    del names[idx]
+                    del scores[idx]
+                    print('{}의 정보가 삭제되었습니다.'.format(name))
+                    break
+                elif i == 'N':
+                    print('취소하였습니다.')
+                    break
+    else:
+        print('존재하지 않습니다.')
+        return
+
+# 실행
 while not bFinish:
     print('menu\n','-' * 27)
     for a,k in enumerate(Menu_names):
@@ -153,6 +135,8 @@ while not bFinish:
         list_all()
     elif menu == '3':
         update()
+    elif menu == '4':
+        delete()
     elif menu == '6':
         print('종료합니다.')
         bFinish = True

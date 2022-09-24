@@ -28,7 +28,7 @@ scores = []
 menu_list = ["1", "2", "3", "4", "5", "6"]
 Menu_names = ["입력", "출력", "수정", "삭제", "검색", "종료"]
 bFinish = False
-# 입력
+# 1번 입력
 def insert():
     name = input('학생의 이름 : ')
     score = int(input('점수 등록 : '))
@@ -41,20 +41,37 @@ def insert():
         insert()
     elif ins == 'N':
         return
-    elif ins != 'N':
+    else:
         while True:
             ins = input('다시 입력해주세요.')
-            ins.upper()
+            ins = ins.upper()
             if ins == 'Y':
                 return insert()
             elif ins == 'N':
                 break
 
-# 수정
+# 3번 수정
 def update():
     name = input('수정할 학생의 이름 : ')
     if name in names:
         idx = names.index(name)
+        name = input('학생의 이름을 바꾸시겠습니까 ? (Y / N)')
+        name = name.upper()
+        if name == 'Y':
+            name = input('학생의 이름을 수정하세요 : ')
+            name = name.strip().upper()
+            names[idx] = name
+        elif name == 'N':
+            pass
+        else :
+            while True:
+                ins = input('다시 입력해주세요. (Y / N)')
+                ins = ins.upper()
+                if ins == 'Y':
+                    return update()
+                elif ins == 'N':
+                    break
+
         score = int(input('학생의 점수를 변경합니다. : '))
         scores[idx] = score
         print('수정되었습니다.')
@@ -69,7 +86,7 @@ def nEmpty():
     else:
         return False
 
-#리스트 확인
+# 2번 리스트 확인
 def list_all():
     print('list')
     bEmpty = nEmpty()
@@ -85,7 +102,7 @@ def list_all():
             i -= 1
     print(f'총{len(names)}명, 총점수 : {full_score}, 평균점수 : {full_score / len(names)}')
 
-# 삭제
+# 4번 삭제
 def delete():
     name = input('삭제할 이름을 입력하세요.')
     name = name.strip().upper()
@@ -116,6 +133,18 @@ def delete():
         print('존재하지 않습니다.')
         return
 
+# 5번 검색
+def search():
+    print('사람을 찾습니다.')
+    choice = input('검색할 사람을 입력하세요 :')
+    choice = choice.strip().upper()
+    if choice in names:
+        idx = names.index(choice)
+        print('{}의 점수는 {}입니다.'.format(names[idx], scores[idx]))
+    else:
+        print('없습니다.')
+        return None
+
 # 실행
 while not bFinish:
     print('menu\n','-' * 27)
@@ -137,6 +166,8 @@ while not bFinish:
         update()
     elif menu == '4':
         delete()
+    elif menu == '5':
+        search()
     elif menu == '6':
         print('종료합니다.')
         bFinish = True

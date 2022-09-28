@@ -1,7 +1,7 @@
 from typing import Any, Sequence
 
 def seq_search(a: Sequence, key: Any) -> int:
-    # 시퀸스 a에서 key와 값이 같은 원소를 이진 검색
+    # 시퀸스 a에서 key와 값이 같은 원소를 이진 검색(실행 과정을 출력)
     pl = 0 # 검색범위 맨 앞 원소의 인덱스
     pr = len(a) - 1 # 검색범위 맨 뒤 원소의 인덱스
 

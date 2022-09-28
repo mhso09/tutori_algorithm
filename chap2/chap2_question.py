@@ -117,7 +117,7 @@ def delete():
             print('{}의 정보가 삭제되었습니다.'.format(name))
         elif i == 'N':
             print('취소하였습니다.')
-        elif i != 'N':
+        else:
             while True:
                 i = input('다시 입력하세요.')
                 i = i.upper()

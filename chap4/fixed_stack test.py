@@ -1,6 +1,7 @@
 # 고정길이 스택 클래스 FixedStack 사용
 from enum import Enum
 from fixed_stack import FixedStack
+from fixed_stack_2 import Stack
 
 Menu = Enum('Menu', ['푸시', '팝', '피크', '검색', '덤프', '종료'])
 
@@ -13,7 +14,7 @@ def select_menu() -> Menu:
         if 1 <= n <= len(Menu):
             return Menu(n)
 
-s = FixedStack(64) # 최대 64개의 푸시를 할 수 있는 스택
+s = Stack(64) # 최대 64개의 푸시를 할 수 있는 스택
 
 while True:
     print(f'현재 데이터 개수 : {len(s)} / {s.capacity}')
